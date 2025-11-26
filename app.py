@@ -138,7 +138,7 @@ HTML = """
             <div class="dot"></div>
             Examen Último Parcial • DevOps
         </div>
-        <h1>Entorno del Examen de DevOps 🚀</h1>
+        <h1>Entorno del Examen de DevOps By Paul Carrillo🚀</h1>
         <p class="subtitle">
             Esta página confirma que tu entorno para el <strong>examen del último parcial de DevOps</strong>
             está desplegado correctamente. Aquí demostrarás CI/CD, Docker y automatización.
