@@ -1,33 +1,32 @@
 import pytest
-from app import create_app
+from app import app
 
 
 @pytest.fixture
 def client():
-    app = create_app()
-    app.config.update(
-        {
-            "TESTING": True,
-        }
-    )
-
+    app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
 
 
-def test_index_returns_200_and_message(client):
+def test_home_status_code(client):
     response = client.get("/")
     assert response.status_code == 200
 
-    data = response.get_json()
-    assert data is not None
-    assert data.get("message") == "Hello, World, esto es para el examen de DevOps!"
+
+def test_home_contains_exam_title_and_devops(client):
+    response = client.get("/")
+    html = response.data.decode("utf-8")
+
+    # El título principal del examen debe aparecer
+    assert "Entorno del Examen de DevOps" in html
+    # Debe mencionar explícitamente que es el último parcial
+    assert "examen del último parcial de DevOps" in html
 
 
-def test_health_returns_ok(client):
-    response = client.get("/health")
-    assert response.status_code == 200
+def test_home_contains_exam_button_label(client):
+    response = client.get("/")
+    html = response.data.decode("utf-8")
 
-    data = response.get_json()
-    assert data is not None
-    assert data.get("status") == "ok"
+    # El botón para probar el entorno del examen debe estar presente
+    assert "Probar entorno del examen" in html
